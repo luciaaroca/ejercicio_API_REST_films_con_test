@@ -1,0 +1,70 @@
+//concetamos con la api
+const fetchPeli = require("../utils/fetchFilms");
+
+
+//GET (retornar un json)
+
+const getFilmByTitle = async (req, res) => {
+  try {
+      const title = req.params.title;
+      const film = await fetchPeli.fetchFilm(title); //api de arriba
+      res.status(200).json(film); // Respuesta de la API para 1 producto
+        }
+  catch{
+     console.log(`ERROR: ${error.stack}`);
+     res.status(400).json({msj:`ERROR: ${error.stack}`});
+  }
+};
+
+//POST 
+
+const postFilm = async (req, res) => {
+    try {
+    const { Title } = req.body; // obtienes el título desde el body
+    if (!Title) {
+      return res.status(400).json({ msj: "Falta el campo Title" });
+    }
+
+    // Simulas que se ha guardado
+    res.status(200).json({ message: `Se ha guardado ${Title}` });
+  } catch (error) {
+    console.log(`ERROR: ${error.stack}`);
+    res.status(400).json({ msj: `ERROR: ${error.stack}` });
+  }
+};
+
+//PUT (update/editar)->simulado
+/*Se espera algo asi:
+{
+  "id": 5,
+  "Title": "Titanic"
+}*/
+const putFilm = (req, res) => {
+    try{
+      const id = req.body.id;
+      const Title = req.body.Title;
+      res.status(200).json({
+            id: id,
+            message: `Se ha actualizado ${Title}`
+        });
+    }catch(error){
+        console.log(`ERROR: ${error.stack}`);
+        res.status(400).json({msj:`ERROR: ${error.stack}`}); 
+    }
+}
+//DELETE
+const deleteFilm =(req,res) =>{
+    try{
+     res.status(200).send({msj:"Se ha borrado la película con" + req.params.id});  
+    }catch(error){
+      console.log(`ERROR: ${error.stack}`);
+      res.status(400).json({msj:`ERROR: ${error.stack}`}); 
+    }
+}
+
+module.exports = { 
+    getFilmByTitle,
+    postFilm,
+    putFilm,
+    deleteFilm
+ };
