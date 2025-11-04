@@ -1,5 +1,5 @@
 //concetamos con la api
-const fetchPeli = require("../utils/fetchFilms");
+const fetchFilm = require("../utils/fetchFilms");
 
 
 //GET (retornar un json)
@@ -7,12 +7,17 @@ const fetchPeli = require("../utils/fetchFilms");
 const getFilmByTitle = async (req, res) => {
   try {
       const title = req.params.title;
-      const film = await fetchPeli.fetchFilm(title); //api de arriba
-      res.status(200).json(film); // Respuesta de la API para 1 producto
+      const film = await fetchFilm(title); //api de arriba
+      if(film){
+        res.status(200).json(film); // Respuesta de la API para 1 producto
+      } else{
+        res.status(404).json({message:`Film not found`})
+      }
+
         }
-  catch{
+  catch(error){
      console.log(`ERROR: ${error.stack}`);
-     res.status(400).json({msj:`ERROR: ${error.stack}`});
+     res.status(400).json({message:`ERROR: ${error.stack}`});
   }
 };
 
@@ -54,8 +59,9 @@ const putFilm = (req, res) => {
 }
 //DELETE
 const deleteFilm =(req,res) =>{
+   const id = req.body.id;
     try{
-     res.status(200).send({msj:"Se ha borrado la película con" + req.params.id});  
+     res.status(200).send({message:`Se ha borrado la película con ID: ${id}`});  
     }catch(error){
       console.log(`ERROR: ${error.stack}`);
       res.status(400).json({msj:`ERROR: ${error.stack}`}); 

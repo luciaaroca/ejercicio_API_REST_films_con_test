@@ -18,7 +18,7 @@ module.exports = app;
 
 //para ver nuestra API_KEY pero de .env pero que sigamos sin verlo
 require('dotenv').config()
-console.log(process.env) // remove this after you've confirmed it is workin
+// console.log(process.env) // remove this after you've confirmed it is workin
 
 
 
@@ -29,6 +29,6 @@ const filmsRoutes = require("./routes/films.js"); //importamos los datos de film
 app.use("/api/film", filmsRoutes); //usar las rutas definidas en films.routes.js
 //---------------------------
 
-console.log("API Key:", process.env.OMDB_API_KEY);
+console.log("API Key:", process.env.API_KEY);
 
 

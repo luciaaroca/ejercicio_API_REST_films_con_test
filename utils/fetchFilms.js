@@ -27,6 +27,4 @@ try {
 //POST (añadir)-->no hay que ponerlo aqui ya que la api no permite añadir un objeto
 //PUT (editar)-->igual que el anterior
 //DELETE (borrar) --> igual que el anterior
-module.exports = {
-    fetchFilm
-}
+module.exports =  fetchFilm;
